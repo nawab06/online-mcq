@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<head>
+<title>Student online MCQ Exam</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $document.ready(function(){
+        $("but1").click(function()
+        {
+            $(".rb").show();
+            $(".rb").attr("disabled",true);
+        });
+
+
+
+    });
+    function getAnswers()
+    {
+        document.getElementByID(userAnswers).innerHTML="";
+        var e=document.getElementsByTagName('input');
+        for(i=0;i<=e.length;i++)
+        {
+            if(e[i].type=="radio")
+            {
+                if(e[i].checked)
+                {
+                    document.getElementByID(userAnswers).innerHTML+="Q"+e[i].name+"your selected answer is :"+e[i].value+"<br/>";
+                }
+            }
+        }
+    }
+</script>
+</head>
+<body><center>
+    <h1>Online Exam Dynamically From MySQL database</h1>
+ </center>
+     <div style="padding-left: 40px;">
+        {% for result in Mcq_exam %}
+        
+        <table>
+            <tr>
+                <td>{{result.questionID}} {{result.question}}?</td>
+            </tr>
+            <tr><td><input type="radio" id="OPTION1" class="rb" name="{{result.questionID}}" value="{{result.OPTION1}}">{{result.OPTION1}} 
+            </td></tr>   
+            <tr><td><input type="radio" id="OPTION2" class="rb" name="{{result.questionID}}" value="{{result.OPTION2}}">{{result.OPTION2}} 
+            </td></tr>
+            <tr><td><input type="radio" id="OPTION3" class="rb" name="{{result.questionID}}" value="{{result.OPTION3}}">{{result.OPTION3}} 
+            </td></tr>
+            <tr><td><input type="radio" id="OPTION4" class="rb" name="{{result.questionID}}" value="{{result.OPTION4}}">{{result.OPTION4}} 
+            </td></tr> 
+            <tr><td><label id="correctAnswer" class="rb" style="display:none;"><b>The correct answer is : {{result.correctAnswer}}</b></label>
+            </td></tr>
+            </table>
+         {% endfor %}%}
+         <hr/>
+         <input type="submit" value="click for results" id="but1" onclick="getAnswers();"/><br/><hr/>
+         <b id="userAnswers"></b>
+    </div>
+ </body>
+
+</html>
+
+
+     
+    
+    
+   
+
